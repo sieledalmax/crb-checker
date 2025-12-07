@@ -1182,43 +1182,80 @@
       }
     }
     
-    // Check payment status via Serverless Function
-    async function checkPaymentStatus(reference, maxAttempts = 20) {
-      let attempts = 0;
+    // Replace the checkPaymentStatus function in get-report.html with this improved version:
+
+// Check payment status via Serverless Function - IMPROVED VERSION
+async function checkPaymentStatus(reference, maxAttempts = 30) { // Increased to 30 attempts
+  let attempts = 0;
+  
+  return new Promise((resolve, reject) => {
+    const interval = setInterval(async () => {
+      attempts++;
       
-      return new Promise((resolve, reject) => {
-        const interval = setInterval(async () => {
-          attempts++;
-          
-          try {
-            // ✅ Use relative path for local development
-            const response = await fetch(`./api/verify-payment.js?reference=${encodeURIComponent(reference)}`);
-            const result = await response.json();
-
-            console.log(`Payment status check ${attempts}:`, result);
-
-            if (result.success && result.status === 'COMPLETED') {
-              clearInterval(interval);
-              resolve(true);
-            } else if (result.success && (result.status === 'FAILED' || result.status === 'CANCELLED')) {
-              clearInterval(interval);
-              reject(new Error('Payment failed or was cancelled'));
-            } else if (attempts >= maxAttempts) {
-              clearInterval(interval);
-              reject(new Error('Payment verification timeout'));
-            }
-          } catch (error) {
-            console.error('Status check error:', error);
-            
-            if (attempts >= maxAttempts) {
-              clearInterval(interval);
-              reject(new Error('Payment verification failed'));
-            }
+      try {
+        // Use relative path for local development
+        const response = await fetch(`./api/verify-payment.js?reference=${encodeURIComponent(reference)}`);
+        
+        if (!response.ok) {
+          console.warn(`Status check ${attempts}: HTTP error ${response.status}`);
+          // Don't reject on HTTP errors, just continue checking
+          if (attempts >= maxAttempts) {
+            clearInterval(interval);
+            reject(new Error(`Payment verification failed after ${maxAttempts} attempts`));
           }
-        }, 3000);
-      });
-    }
-    
+          return;
+        }
+
+        const result = await response.json();
+        console.log(`Payment status check ${attempts}:`, result);
+
+        // SwiftWallet status checking
+        if (result.success) {
+          const status = (result?.status || '').toString().toLowerCase();
+          const dataStatus = (result?.data?.status || '').toString().toLowerCase();
+          
+          console.log('Statuses found:', { status, dataStatus });
+          
+          // Check for successful payment statuses
+          const isSuccess = ['completed', 'confirmed', 'success', 'paid'].includes(status) || 
+                           ['completed', 'confirmed', 'success', 'paid'].includes(dataStatus);
+          
+          // Check for failed statuses
+          const isFailed = ['failed', 'cancelled', 'rejected', 'declined'].includes(status) ||
+                          ['failed', 'cancelled', 'rejected', 'declined'].includes(dataStatus);
+          
+          if (isSuccess) {
+            clearInterval(interval);
+            console.log('Payment verified as successful!');
+            resolve(true);
+          } else if (isFailed) {
+            clearInterval(interval);
+            console.log('Payment failed or was cancelled');
+            reject(new Error('Payment failed or was cancelled'));
+          } else if (attempts >= maxAttempts) {
+            clearInterval(interval);
+            console.log('Max attempts reached, still pending');
+            reject(new Error('Payment verification timeout - payment may still be processing'));
+          }
+          // If status is pending or any other status, continue checking
+        } else {
+          console.warn(`Payment check ${attempts}: API returned success:false`, result);
+          if (attempts >= maxAttempts) {
+            clearInterval(interval);
+            reject(new Error('Payment verification failed - API error'));
+          }
+        }
+      } catch (error) {
+        console.error(`Status check ${attempts} error:`, error.message);
+        
+        if (attempts >= maxAttempts) {
+          clearInterval(interval);
+          reject(new Error(`Payment verification failed after ${maxAttempts} attempts`));
+        }
+      }
+    }, 5000); // Increased to 5 seconds between checks
+  });
+}   
     // Main payment initiation function
     async function initiatePayment() {
       // Show loading
