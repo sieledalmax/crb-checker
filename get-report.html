@@ -1012,11 +1012,11 @@
       });
     });
     
-    // API Endpoints (Update these with your actual endpoints)
+    // ✅ UPDATED: Correct API endpoints for local development
     const API_ENDPOINTS = {
-        initiatePayment: '/api/initiate-crb-payment',
-        verifyPayment: '/api/verify-payment',
-        normalizePhone: '/api/normalize-phone'
+        initiatePayment: './api/initiate-payment.js',
+        verifyPayment: './api/verify-payment.js',
+        normalizePhone: './api/normalize-phone.js'
     };
     
     // Variables to store selected plan
@@ -1131,7 +1131,8 @@
     // Normalize phone via Serverless Function
     async function normalizePhoneNumber(phone) {
       try {
-        const response = await fetch(API_ENDPOINTS.normalizePhone, {
+        // ✅ Use relative path for local development
+        const response = await fetch('./api/normalize-phone.js', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -1155,7 +1156,8 @@
     // Send STK Push via Serverless Function
     async function sendCRBSTK(phoneNumber, amount, plan) {
       try {
-        const response = await fetch(API_ENDPOINTS.initiatePayment, {
+        // ✅ Use relative path for local development
+        const response = await fetch('./api/initiate-payment.js', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -1189,7 +1191,8 @@
           attempts++;
           
           try {
-            const response = await fetch(`${API_ENDPOINTS.verifyPayment}?reference=${encodeURIComponent(reference)}`);
+            // ✅ Use relative path for local development
+            const response = await fetch(`./api/verify-payment.js?reference=${encodeURIComponent(reference)}`);
             const result = await response.json();
 
             console.log(`Payment status check ${attempts}:`, result);
@@ -1266,55 +1269,53 @@
           try {
             const paymentSuccess = await checkPaymentStatus(paymentReference);
 
-            // In the payment success section (after line ~382), replace with:
-if (paymentSuccess) {
-  // Store comprehensive payment details in sessionStorage
-  const planName = selectedPlan === 'standard' ? 'Standard Report' : 'Premium Report';
-  const reportDetails = selectedPlan === 'standard' ? [
-    'Basic credit score',
-    'Payment history overview',
-    'Active loans summary',
-    'Debt profile',
-    'Email report delivery'
-  ] : [
-    'Detailed credit score analysis',
-    'Complete payment history',
-    'All active loans breakdown',
-    'Comprehensive debt profile',
-    'Credit recommendations',
-    'PDF & email reports',
-    '30-day validity',
-    'Priority support'
-  ];
+            if (paymentSuccess) {
+              // Store comprehensive payment details in sessionStorage
+              const planName = selectedPlan === 'standard' ? 'Standard Report' : 'Premium Report';
+              const reportDetails = selectedPlan === 'standard' ? [
+                'Basic credit score',
+                'Payment history overview',
+                'Active loans summary',
+                'Debt profile',
+                'Email report delivery'
+              ] : [
+                'Detailed credit score analysis',
+                'Complete payment history',
+                'All active loans breakdown',
+                'Comprehensive debt profile',
+                'Credit recommendations',
+                'PDF & email reports',
+                '30-day validity',
+                'Priority support'
+              ];
 
-  sessionStorage.setItem('crbPayment', JSON.stringify({
-    plan: selectedPlan,
-    planName: planName,
-    amount: selectedAmount,
-    phone: userPhoneNumber,
-    reference: paymentReference,
-    reportDetails: reportDetails,
-    timestamp: new Date().toISOString(),
-    estimatedDelivery: new Date(Date.now() + 5 * 60000).toISOString() // 5 minutes from now
-  }));
-  
-  await Swal.fire({
-    title: 'Payment Successful!',
-    html: `
-      <div style="text-align:center;">
-        <i class="fas fa-check-circle" style="font-size: 64px; color: #4caf50; margin-bottom: 16px;"></i>
-        <p>Your payment of <strong>KSh ${selectedAmount.toLocaleString()}</strong> was successful!</p>
-        <p style="color: #666; font-size: 0.9rem; margin-top: 12px;">Redirecting to your report dashboard...</p>
-      </div>
-    `,
-    icon: 'success',
-    timer: 2000,
-    showConfirmButton: false
-  });
+              sessionStorage.setItem('crbPayment', JSON.stringify({
+                plan: selectedPlan,
+                planName: planName,
+                amount: selectedAmount,
+                phone: userPhoneNumber,
+                reference: paymentReference,
+                reportDetails: reportDetails,
+                timestamp: new Date().toISOString(),
+                estimatedDelivery: new Date(Date.now() + 5 * 60000).toISOString() // 5 minutes from now
+              }));
+              
+              await Swal.fire({
+                title: 'Payment Successful!',
+                html: `
+                  <div style="text-align:center;">
+                    <i class="fas fa-check-circle" style="font-size: 64px; color: #4caf50; margin-bottom: 16px;"></i>
+                    <p>Your payment of <strong>KSh ${selectedAmount.toLocaleString()}</strong> was successful!</p>
+                    <p style="color: #666; font-size: 0.9rem; margin-top: 12px;">Redirecting to your report dashboard...</p>
+                  </div>
+                `,
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+              });
 
-  // Redirect to dashboard
-  window.location.href = 'dash.html';
-
+              // Redirect to dashboard
+              window.location.href = 'dash.html';
             }
           } catch (verificationError) {
             console.error('Payment verification error:', verificationError);
