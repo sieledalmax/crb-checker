@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRB Check Kenya | Get Your Credit Status in Minutes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* CSS Reset & Base Styles */
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --light: #f8f9fa;
+      --dark: #1a1a1a;
+      --success: #4cc9f0;
+      --warning: #f8961e;
+      --gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fefefe;
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--dark);
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    button {
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    section {
+      padding: 4rem 0;
+    }
+    
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .logo-icon {
+      background: var(--gradient);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    
+    .nav-menu a {
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: var(--transition);
+    }
+    
+    .nav-menu a:hover {
+      color: var(--primary);
+    }
+    
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+    
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+    
+    .mobile-toggle {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      color: var(--primary);
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 100%);
+      padding-top: 2rem;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(58, 12, 163, 0.05) 100%);
+    }
+    
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(248, 37, 133, 0.1) 0%, rgba(76, 201, 240, 0.05) 100%);
+    }
+    
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 50px;
+      font-weight: 600;
+      color: var(--primary);
+      box-shadow: var(--card-shadow);
+      margin-bottom: 1.5rem;
+    }
+    
+    .pill i {
+      color: var(--accent);
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+    
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gradient);
+      color: white;
+      padding: 1rem 2.25rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+      transition: var(--transition);
+      margin-bottom: 3rem;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(67, 97, 238, 0.4);
+    }
+    
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 600;
+    }
+    
+    /* How It Works */
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .step-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border-top: 5px solid var(--primary);
+    }
+    
+    .step-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      color: white;
+      font-weight: 800;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      margin-bottom: 1.5rem;
+    }
+    
+    .step-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .step-card p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f9 100%);
+    }
+    
+    .testimonial-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 2rem;
+      padding: 1rem 0 2rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) #e0e0e0;
+    }
+    
+    .testimonial-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    .testimonial-container::-webkit-scrollbar-track {
+      background: #e0e0e0;
+      border-radius: 10px;
+    }
+    
+    .testimonial-container::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+    
+    .testimonial-card {
+      min-width: 300px;
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+    }
+    
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      font-size: 4rem;
+      color: var(--primary);
+      opacity: 0.1;
+      font-family: Georgia, serif;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: #555;
+      line-height: 1.7;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    
+    .author-info h4 {
+      margin-bottom: 0.25rem;
+    }
+    
+    .author-info p {
+      font-size: 0.85rem;
+      color: #777;
+      margin-bottom: 0;
+    }
+    
+    /* Footer CTA */
+    .footer-cta {
+      background: var(--gradient);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .footer-cta::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .footer-cta::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .footer-cta h2 {
+      color: white;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-cta p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    .cta-secondary {
+      background: white;
+      color: var(--primary);
+      padding: 1rem 2.25rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .cta-secondary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #ddd;
+      padding: 3rem 0 2rem;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-section h3 {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+    
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+    
+    .footer-links a {
+      transition: var(--transition);
+      opacity: 0.8;
+    }
+    
+    .footer-links a:hover {
+      opacity: 1;
+      color: white;
+      padding-left: 5px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-5px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 1rem;
+      }
+      
+      .nav-menu {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        flex-direction: column;
+        background: white;
+        width: 80%;
+        max-width: 300px;
+        padding: 2rem;
+        border-radius: 0 0 0 16px;
+        box-shadow: -5px 10px 30px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        z-index: 99;
+      }
+      
+      .nav-menu.active {
+        right: 0;
+      }
+      
+      .mobile-toggle {
+        display: block;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .section-title {
+        font-size: 1.7rem;
+      }
+      
+      .footer-cta h2 {
+        font-size: 1.8rem;
+      }
+      
+      .stat-number {
+        font-size: 1.7rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      section {
+        padding: 3rem 0;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .steps {
+        grid-template-columns: 1fr;
+      }
+      
+      .testimonial-card {
+        min-width: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <span>CRB Check</span>
+      </a>
+      
+      <button class="mobile-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container hero-content">
+      <div class="pill">
+        <i class="fas fa-check-circle"></i>
+        <span>Thousands of Kenyans checked their reports</span>
+      </div>
+      
+      <h1>Get your CRB status in less than 2 minutes</h1>
+      <p>Fast, secure and reliable CRB check trusted by people across Kenya. No complicated forms, just instant results.</p>
+      
+      <a href="info.html" class="cta-button">
+        <span>Check My Status</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">50K+</div>
+          <div class="stat-label">Kenyans Served</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2 min</div>
+          <div class="stat-label">Average Check Time</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">99%</div>
+          <div class="stat-label">Accuracy Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how" id="how">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Enter your Details</h3>
+          <p>Provide the phone number registered to your ID and your email address. We ensure your data privacy and security.</p>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Instant Processing</h3>
+          <p>Our advanced system checks your CRB status instantly across all credit bureaus in Kenya.</p>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Get Results</h3>
+          <p>Your CRB status is displayed immediately and a detailed report is sent to your email.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <h2 class="section-title">What People Say</h2>
+      
+      <div class="testimonial-container">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Very fast and reliable service. I got my results instantly and was able to apply for a loan the same day."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">GK</div>
+            <div class="author-info">
+              <h4>Grace K.</h4>
+              <p>Nairobi</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Super easy experience. I was worried about the process but it took less than 2 minutes. Highly recommended."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">BM</div>
+            <div class="author-info">
+              <h4>Brian M.</h4>
+              <p>Mombasa</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">"The process was smooth and accurate. I got my report with clear explanations. Great service!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">EA</div>
+            <div class="author-info">
+              <h4>Elizabeth A.</h4>
+              <p>Kisumu</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p class="testimonial-text">"I loved the speed and simplicity. Best CRB check platform so far. Will definitely use again."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">JO</div>
+            <div class="author-info">
+              <h4>John O.</h4>
+              <p>Nakuru</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer CTA -->
+  <section class="footer-cta" id="contact">
+    <div class="container">
+      <h2>Ready to Check Your CRB Status?</h2>
+      <p>Join thousands of Kenyans who have taken control of their credit health. It only takes less than 2 minutes.</p>
+      <button class="cta-secondary">Get Started Now</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>CRB Check</h3>
+          <p>Your trusted partner for instant credit status checks in Kenya. Fast, secure, and reliable.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul class="footer-links">
+            <li><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</li>
+            <li><i class="fas fa-phone"></i> +254 700 123 456</li>
+            <li><i class="fas fa-envelope"></i> support@crbcheck.co.ke</li>
+            <li><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 CRB Check. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Navigation Toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      mobileToggle.innerHTML = navMenu.classList.contains('active') 
+        ? '<i class="fas fa-times"></i>' 
+        : '<i class="fas fa-bars"></i>';
+    });
+    
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if(targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if(targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Add animation to step cards on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    // Observe step cards
+    document.querySelectorAll('.step-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>

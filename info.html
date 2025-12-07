@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account | CRB Check Kenya</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* CSS Variables - Consistent with landing page */
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --light: #f8f9fa;
+      --dark: #1a1a1a;
+      --success: #4cc9f0;
+      --warning: #f8961e;
+      --gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+      --gradient-light: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 100%);
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: var(--gradient-light);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--dark);
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+    
+    button {
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+    
+    /* Form Container */
+    .form-container {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--gradient);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+    
+    .logo-icon {
+      background: var(--gradient);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    
+    .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .form-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .form-header p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+    
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #444;
+      font-size: 0.95rem;
+    }
+    
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--primary);
+      opacity: 0.7;
+      font-size: 1rem;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: var(--transition);
+      background: #fafafa;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    }
+    
+    .form-input::placeholder {
+      color: #999;
+    }
+    
+    /* Password Visibility Toggle */
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      background: none;
+      color: #777;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 2;
+    }
+    
+    .password-toggle:hover {
+      color: var(--primary);
+    }
+    
+    /* Checkbox */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      transition: var(--transition);
+    }
+    
+    .checkbox-group input[type="checkbox"]:checked {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    
+    .checkbox-group input[type="checkbox"]:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+    
+    .checkbox-group label {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.4;
+    }
+    
+    .checkbox-group a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .checkbox-group a:hover {
+      color: var(--secondary);
+      text-decoration: underline;
+    }
+    
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--gradient);
+      color: white;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(67, 97, 238, 0.4);
+    }
+    
+    .submit-btn:active:not(:disabled) {
+      transform: translateY(-1px);
+    }
+    
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    /* Progress Steps */
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #eee;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    
+    .step {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #999;
+      position: relative;
+      z-index: 2;
+      transition: var(--transition);
+    }
+    
+    .step.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+    
+    .step.completed {
+      background: #2ed573;
+      border-color: #2ed573;
+      color: white;
+    }
+    
+    /* Loading Overlay */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-content {
+      text-align: center;
+      max-width: 400px;
+      padding: 2rem;
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--card-shadow-hover);
+    }
+    
+    .loading-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      color: white;
+      font-size: 2rem;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .loading-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    
+    .loading-subtext {
+      color: #666;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    
+    /* Progress Bar */
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: var(--gradient);
+      width: 0%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    
+    .progress-percentage {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .progress-time {
+      font-size: 0.85rem;
+      color: #888;
+    }
+    
+    /* Form Validation Styles */
+    .form-input.error {
+      border-color: #ff4757;
+      background: rgba(255, 71, 87, 0.05);
+    }
+    
+    .form-input.success {
+      border-color: #2ed573;
+      background: rgba(46, 213, 115, 0.05);
+    }
+    
+    .error-message {
+      color: #ff4757;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    
+    .input-wrapper.error .error-message {
+      display: block;
+    }
+    
+    /* Responsive */
+    @media (max-width: 576px) {
+      body {
+        padding: 1rem;
+      }
+      
+      .form-container {
+        padding: 2rem 1.5rem;
+      }
+      
+      .form-header h2 {
+        font-size: 1.6rem;
+      }
+      
+      .progress-steps {
+        margin-bottom: 2rem;
+      }
+      
+      .step {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+      }
+      
+      .loading-content {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .form-container {
+        padding: 1.5rem 1.25rem;
+      }
+      
+      .logo {
+        font-size: 1.3rem;
+      }
+      
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container" id="formContainer">
+  <!-- Logo -->
+  <div class="logo">
+    <div class="logo-icon">
+      <i class="fas fa-shield-alt"></i>
+    </div>
+    <span>CRB Check</span>
+  </div>
+  
+  <!-- Progress Steps -->
+  <div class="progress-steps">
+    <div class="step completed"><i class="fas fa-check"></i></div>
+    <div class="step active">2</div>
+    <div class="step">3</div>
+  </div>
+  
+  <!-- Form Header -->
+  <div class="form-header">
+    <h2>Create Your Account</h2>
+    <p>Start your journey to financial freedom</p>
+  </div>
+  
+  <!-- Form -->
+  <form id="registerForm">
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <div class="input-wrapper">
+        <div class="input-icon"><i class="fas fa-user"></i></div>
+        <input type="text" class="form-input" id="fullName" placeholder="John Doe" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <div class="input-wrapper">
+        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+        <input type="email" class="form-input" id="email" placeholder="your@email.com" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Phone Number</label>
+      <div class="input-wrapper">
+        <div class="input-icon"><i class="fas fa-phone"></i></div>
+        <input type="tel" class="form-input" id="phone" placeholder="+254 700 000000" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">ID Number</label>
+      <div class="input-wrapper">
+        <div class="input-icon"><i class="fas fa-id-card"></i></div>
+        <input type="text" class="form-input" id="idNumber" placeholder="Enter your ID number" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <div class="input-wrapper">
+        <div class="input-icon"><i class="fas fa-lock"></i></div>
+        <input type="password" class="form-input" id="password" placeholder="Create a strong password" required>
+        <button type="button" class="password-toggle" id="togglePassword">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+      <div class="error-message">Password must be at least 4 characters</div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Confirm Password</label>
+      <div class="input-wrapper">
+        <div class="input-icon"><i class="fas fa-lock"></i></div>
+        <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm your password" required>
+      </div>
+      <div class="error-message">Passwords do not match</div>
+    </div>
+    
+    <div class="checkbox-group">
+      <input type="checkbox" id="terms" required>
+      <label for="terms">
+        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+      </label>
+    </div>
+    
+    <button type="submit" class="submit-btn">
+      <span>Create Account</span>
+      <i class="fas fa-arrow-right"></i>
+    </button>
+  </form>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-content">
+    <div class="loading-icon">
+      <i class="fas fa-shield-alt"></i>
+    </div>
+    <h3 class="loading-text">Creating Your Account</h3>
+    <p class="loading-subtext">Please wait while we set up your account. This will take just a moment.</p>
+    
+    <div class="progress-percentage" id="progressPercentage">0%</div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-time" id="progressTime">Preparing your account...</div>
+  </div>
+</div>
+
+<script>
+  // Password visibility toggle
+  const togglePassword = document.getElementById('togglePassword');
+  const password = document.getElementById('password');
+  const confirmPassword = document.getElementById('confirmPassword');
+  
+  togglePassword.addEventListener('click', function() {
+    // Toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    confirmPassword.setAttribute('type', type);
+    
+    // Toggle the eye icon
+    this.querySelector('i').classList.toggle('fa-eye');
+    this.querySelector('i').classList.toggle('fa-eye-slash');
+  });
+  
+  // Form validation
+  const form = document.getElementById('registerForm');
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirmPassword');
+  const passwordError = passwordInput.parentElement.nextElementSibling;
+  const confirmError = confirmPasswordInput.parentElement.nextElementSibling;
+  
+  // Password validation - Minimum 4 characters
+  function validatePassword() {
+    const password = passwordInput.value;
+    
+    if (password.length < 4) {
+      passwordInput.classList.add('error');
+      passwordInput.classList.remove('success');
+      passwordError.style.display = 'block';
+      passwordError.textContent = 'Password must be at least 4 characters';
+      return false;
+    } else {
+      passwordInput.classList.remove('error');
+      passwordInput.classList.add('success');
+      passwordError.style.display = 'none';
+      return true;
+    }
+  }
+  
+  // Confirm password validation
+  function validateConfirmPassword() {
+    if (passwordInput.value !== confirmPasswordInput.value) {
+      confirmPasswordInput.classList.add('error');
+      confirmPasswordInput.classList.remove('success');
+      confirmError.style.display = 'block';
+      return false;
+    } else {
+      confirmPasswordInput.classList.remove('error');
+      confirmPasswordInput.classList.add('success');
+      confirmError.style.display = 'none';
+      return true;
+    }
+  }
+  
+  // Real-time validation
+  passwordInput.addEventListener('input', validatePassword);
+  confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+  
+  // Form submission
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Validate all required fields
+    const requiredInputs = document.querySelectorAll('input[required]');
+    let allValid = true;
+    
+    requiredInputs.forEach(input => {
+      if (!input.value.trim()) {
+        input.classList.add('error');
+        allValid = false;
+      } else {
+        input.classList.remove('error');
+      }
+    });
+    
+    const isPasswordValid = validatePassword();
+    const isConfirmValid = validateConfirmPassword();
+    const isTermsChecked = document.getElementById('terms').checked;
+    
+    if (!isTermsChecked) {
+      alert('Please agree to the Terms of Service and Privacy Policy');
+      return;
+    }
+    
+    if (allValid && isPasswordValid && isConfirmValid && isTermsChecked) {
+      // Show loading overlay
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      const progressBar = document.getElementById('progressBar');
+      const progressPercentage = document.getElementById('progressPercentage');
+      const progressTime = document.getElementById('progressTime');
+      const submitBtn = form.querySelector('.submit-btn');
+      
+      // Disable the submit button
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+      
+      // Show loading overlay
+      loadingOverlay.classList.add('active');
+      
+      // Animate progress bar for 5 seconds
+      let progress = 0;
+      const totalTime = 5000; // 5 seconds
+      const interval = 50; // Update every 50ms
+      const increment = (interval / totalTime) * 100;
+      
+      const progressInterval = setInterval(() => {
+        progress += increment;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(progressInterval);
+          
+          // Update progress bar and text
+          progressBar.style.width = `${progress}%`;
+          progressPercentage.textContent = `${Math.round(progress)}%`;
+          progressTime.textContent = 'Account created successfully!';
+          
+          // Wait a moment then redirect
+          setTimeout(() => {
+            // Store user data (in a real app, this would be sent to a server)
+            const userData = {
+              fullName: document.getElementById('fullName').value,
+              email: document.getElementById('email').value,
+              phone: document.getElementById('phone').value,
+              idNumber: document.getElementById('idNumber').value,
+              timestamp: new Date().toISOString()
+            };
+            
+            // Store in localStorage for demonstration
+            localStorage.setItem('crbUserData', JSON.stringify(userData));
+            
+            // Redirect to get-info.html
+            window.location.href = 'get-report.html';
+          }, 800);
+        }
+        
+        // Update progress bar and text
+        progressBar.style.width = `${progress}%`;
+        progressPercentage.textContent = `${Math.round(progress)}%`;
+        
+        // Update time text
+        const timeLeft = Math.round((totalTime * (100 - progress)) / 100 / 1000);
+        progressTime.textContent = `Redirecting in ${timeLeft} seconds...`;
+      }, interval);
+    }
+  });
+  
+  // Clear error on input
+  document.querySelectorAll('.form-input').forEach(input => {
+    input.addEventListener('input', function() {
+      if (this.value.trim()) {
+        this.classList.remove('error');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
