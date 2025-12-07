@@ -6,6 +6,8 @@
   <title>Express CRB Check — Choose Your CRB Report</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- SweetAlert CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
   <style>
     :root {
       --primary: #4361ee;
@@ -138,6 +140,142 @@
       font-size: 1.1rem;
       max-width: 600px;
       margin: 0 auto;
+    }
+    
+    /* Phone Modal Styles */
+    .phone-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .phone-modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: var(--card-shadow-hover);
+      animation: modalSlide 0.3s ease;
+    }
+    
+    @keyframes modalSlide {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .modal-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+      text-align: center;
+    }
+    
+    .modal-subtitle {
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    
+    .phone-input-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .phone-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .phone-input-container {
+      display: flex;
+      align-items: center;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .phone-input-container:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    }
+    
+    .country-code {
+      background: #f5f5f5;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      color: var(--dark);
+      border-right: 2px solid #e0e0e0;
+    }
+    
+    .phone-input {
+      flex: 1;
+      border: none;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      outline: none;
+      color: var(--dark);
+    }
+    
+    .phone-input::placeholder {
+      color: #999;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .modal-btn {
+      flex: 1;
+      padding: 0.875rem;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 1rem;
+    }
+    
+    .modal-btn.cancel {
+      background: #f5f5f5;
+      color: var(--muted);
+    }
+    
+    .modal-btn.cancel:hover {
+      background: #e0e0e0;
+    }
+    
+    .modal-btn.submit {
+      background: var(--gradient);
+      color: white;
+      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+    }
+    
+    .modal-btn.submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(67, 97, 238, 0.4);
     }
     
     /* Pricing Cards */
@@ -286,6 +424,7 @@
       cursor: pointer;
       transition: var(--transition);
       margin-top: auto;
+      border: none;
     }
     
     .cta-button.primary {
@@ -550,6 +689,14 @@
       .price-amount {
         font-size: 2.5rem;
       }
+      
+      .modal-content {
+        padding: 2rem 1.5rem;
+      }
+      
+      .modal-buttons {
+        flex-direction: column;
+      }
     }
     
     @media (max-width: 480px) {
@@ -588,6 +735,30 @@
       </nav>
     </div>
   </header>
+
+  <!-- Phone Modal -->
+  <div id="phoneModal" class="phone-modal">
+    <div class="modal-content">
+      <h2 class="modal-title">Enter Your Phone Number</h2>
+      <p class="modal-subtitle">We'll send an M-Pesa STK Push to this number to complete your payment</p>
+      
+      <div class="phone-input-group">
+        <label class="phone-label">Phone Number</label>
+        <div class="phone-input-container">
+          <span class="country-code">+254</span>
+          <input type="tel" id="phoneInput" class="phone-input" placeholder="712 345 678" maxlength="9">
+        </div>
+        <p class="modal-subtitle" style="margin-top: 0.5rem; font-size: 0.85rem;">
+          Enter your Safaricom M-Pesa number (e.g., 712345678)
+        </p>
+      </div>
+      
+      <div class="modal-buttons">
+        <button id="cancelBtn" class="modal-btn cancel">Cancel</button>
+        <button id="submitPhoneBtn" class="modal-btn submit">Proceed to Payment</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content -->
   <main class="main-container">
@@ -635,7 +806,7 @@
           </div>
         </div>
         
-        <button class="cta-button secondary">
+        <button class="cta-button secondary" data-plan="standard" data-amount="156">
           <span>Get Standard Report</span>
           <i class="fas fa-arrow-right"></i>
         </button>
@@ -691,7 +862,7 @@
           </div>
         </div>
         
-        <button class="cta-button primary">
+        <button class="cta-button primary" data-plan="premium" data-amount="233">
           <span>Get Premium Report</span>
           <i class="fas fa-arrow-right"></i>
         </button>
@@ -826,6 +997,9 @@
     </div>
   </footer>
 
+  <!-- SweetAlert JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+  
   <script>
     // Set current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -838,28 +1012,338 @@
       });
     });
     
-    // Plan selection simulation
+    // API Endpoints (Update these with your actual endpoints)
+    const API_ENDPOINTS = {
+        initiatePayment: '/api/initiate-crb-payment',
+        verifyPayment: '/api/verify-payment',
+        normalizePhone: '/api/normalize-phone'
+    };
+    
+    // Variables to store selected plan
+    let selectedPlan = null;
+    let selectedAmount = null;
+    let paymentReference = null;
+    let userPhoneNumber = null;
+    
+    // DOM Elements
+    const phoneModal = document.getElementById('phoneModal');
+    const phoneInput = document.getElementById('phoneInput');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const submitPhoneBtn = document.getElementById('submitPhoneBtn');
+    
+    // Plan selection handlers
     document.querySelectorAll('.cta-button').forEach(button => {
       button.addEventListener('click', function() {
-        const plan = this.closest('.pricing-card').querySelector('.plan-title').textContent;
-        const price = this.closest('.pricing-card').querySelector('.price-amount').textContent;
+        selectedPlan = this.dataset.plan;
+        selectedAmount = parseInt(this.dataset.amount);
         
-        // Show loading state
-        const originalText = this.innerHTML;
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-        this.disabled = true;
-        
-        // Simulate processing
-        setTimeout(() => {
-          alert(`Redirecting to payment for ${plan} (KSh ${price})`);
-          this.innerHTML = originalText;
-          this.disabled = false;
-          
-          // In a real app, you would redirect to payment page
-          // window.location.href = '/checkout.html?plan=' + plan;
-        }, 1000);
+        // Show phone modal
+        phoneModal.classList.add('active');
+        phoneInput.focus();
       });
     });
+    
+    // Close modal
+    cancelBtn.addEventListener('click', () => {
+      phoneModal.classList.remove('active');
+      phoneInput.value = '';
+      selectedPlan = null;
+      selectedAmount = null;
+    });
+    
+    // Submit phone number
+    submitPhoneBtn.addEventListener('click', () => {
+      const phoneValue = phoneInput.value.trim();
+      
+      // Validate phone number
+      if (!phoneValue) {
+        Swal.fire({
+          title: 'Phone Number Required',
+          text: 'Please enter your phone number',
+          icon: 'warning',
+          confirmButtonColor: '#4361ee'
+        });
+        return;
+      }
+      
+      // Validate Kenyan phone number (Safaricom)
+      const phoneRegex = /^(7[0-9]|1[0-9])\d{7}$/;
+      if (!phoneRegex.test(phoneValue)) {
+        Swal.fire({
+          title: 'Invalid Phone Number',
+          html: 'Please enter a valid Safaricom phone number.<br>Example: 712345678',
+          icon: 'error',
+          confirmButtonColor: '#4361ee'
+        });
+        return;
+      }
+      
+      // Format phone number
+      userPhoneNumber = `+254${phoneValue}`;
+      
+      // Close modal
+      phoneModal.classList.remove('active');
+      
+      // Show confirmation dialog
+      showPaymentConfirmation();
+    });
+    
+    // Also allow Enter key to submit
+    phoneInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        submitPhoneBtn.click();
+      }
+    });
+    
+    // Payment confirmation
+    function showPaymentConfirmation() {
+      const planName = selectedPlan === 'standard' ? 'Standard Report' : 'Premium Report';
+      
+      Swal.fire({
+        title: 'Confirm Payment',
+        html: `
+          <div style="text-align:left;">
+            <p>You are purchasing:</p>
+            <p><strong>Plan:</strong> ${planName}</p>
+            <p><strong>Amount:</strong> KSh ${selectedAmount.toLocaleString()}</p>
+            <hr style="margin: 16px 0;">
+            <p style="color: #4361ee; font-weight: 600;">You will receive an M-Pesa prompt to pay KSh ${selectedAmount}</p>
+            <p style="font-size: 0.85rem; color: #666; margin-top: 8px;">Phone: ${userPhoneNumber}</p>
+          </div>
+        `,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Proceed to Payment',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#4361ee'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await initiatePayment();
+        } else {
+          // Reset selections
+          selectedPlan = null;
+          selectedAmount = null;
+          userPhoneNumber = null;
+        }
+      });
+    }
+    
+    // Normalize phone via Serverless Function
+    async function normalizePhoneNumber(phone) {
+      try {
+        const response = await fetch(API_ENDPOINTS.normalizePhone, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ phone })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Phone normalization failed');
+        }
+
+        return result.normalized_phone;
+      } catch (error) {
+        console.error('Phone normalization error:', error);
+        throw error;
+      }
+    }
+    
+    // Send STK Push via Serverless Function
+    async function sendCRBSTK(phoneNumber, amount, plan) {
+      try {
+        const response = await fetch(API_ENDPOINTS.initiatePayment, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            phone_number: phoneNumber,
+            amount: amount,
+            plan_type: plan
+          })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Payment initiation failed');
+        }
+
+        return result;
+      } catch (error) {
+        console.error('Payment API Error:', error);
+        throw error;
+      }
+    }
+    
+    // Check payment status via Serverless Function
+    async function checkPaymentStatus(reference, maxAttempts = 20) {
+      let attempts = 0;
+      
+      return new Promise((resolve, reject) => {
+        const interval = setInterval(async () => {
+          attempts++;
+          
+          try {
+            const response = await fetch(`${API_ENDPOINTS.verifyPayment}?reference=${encodeURIComponent(reference)}`);
+            const result = await response.json();
+
+            console.log(`Payment status check ${attempts}:`, result);
+
+            if (result.success && result.status === 'COMPLETED') {
+              clearInterval(interval);
+              resolve(true);
+            } else if (result.success && (result.status === 'FAILED' || result.status === 'CANCELLED')) {
+              clearInterval(interval);
+              reject(new Error('Payment failed or was cancelled'));
+            } else if (attempts >= maxAttempts) {
+              clearInterval(interval);
+              reject(new Error('Payment verification timeout'));
+            }
+          } catch (error) {
+            console.error('Status check error:', error);
+            
+            if (attempts >= maxAttempts) {
+              clearInterval(interval);
+              reject(new Error('Payment verification failed'));
+            }
+          }
+        }, 3000);
+      });
+    }
+    
+    // Main payment initiation function
+    async function initiatePayment() {
+      // Show loading
+      Swal.fire({
+        title: 'Initiating Payment',
+        html: 'Please wait...',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+
+      try {
+        // First normalize the phone number
+        const normalizedPhone = await normalizePhoneNumber(userPhoneNumber);
+        
+        // Send STK push
+        const paymentResponse = await sendCRBSTK(
+          normalizedPhone,
+          selectedAmount,
+          selectedPlan
+        );
+
+        if (paymentResponse && paymentResponse.reference) {
+          paymentReference = paymentResponse.reference;
+          
+          Swal.fire({
+            title: 'STK Push Sent!',
+            html: `
+              <div style="text-align:center;">
+                <i class="fas fa-mobile-alt" style="font-size: 48px; color: #4361ee; margin-bottom: 16px;"></i>
+                <p>Check your phone for the M-Pesa prompt</p>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 12px;">
+                  Enter your M-Pesa PIN to complete payment of <strong>KSh ${selectedAmount}</strong>
+                </p>
+                <p style="font-size: 0.85rem; color: #999; margin-top: 8px;">
+                  Phone: ${normalizedPhone}
+                </p>
+                <div style="margin-top: 16px; padding: 12px; background: #f0f0f0; border-radius: 8px;">
+                  <p style="font-size: 0.85rem; margin: 0;">Verifying payment...</p>
+                </div>
+              </div>
+            `,
+            icon: 'info',
+            showConfirmButton: false,
+            allowOutsideClick: false
+          });
+
+          // Verify payment
+          try {
+            const paymentSuccess = await checkPaymentStatus(paymentReference);
+
+            // In the payment success section (after line ~382), replace with:
+if (paymentSuccess) {
+  // Store comprehensive payment details in sessionStorage
+  const planName = selectedPlan === 'standard' ? 'Standard Report' : 'Premium Report';
+  const reportDetails = selectedPlan === 'standard' ? [
+    'Basic credit score',
+    'Payment history overview',
+    'Active loans summary',
+    'Debt profile',
+    'Email report delivery'
+  ] : [
+    'Detailed credit score analysis',
+    'Complete payment history',
+    'All active loans breakdown',
+    'Comprehensive debt profile',
+    'Credit recommendations',
+    'PDF & email reports',
+    '30-day validity',
+    'Priority support'
+  ];
+
+  sessionStorage.setItem('crbPayment', JSON.stringify({
+    plan: selectedPlan,
+    planName: planName,
+    amount: selectedAmount,
+    phone: userPhoneNumber,
+    reference: paymentReference,
+    reportDetails: reportDetails,
+    timestamp: new Date().toISOString(),
+    estimatedDelivery: new Date(Date.now() + 5 * 60000).toISOString() // 5 minutes from now
+  }));
+  
+  await Swal.fire({
+    title: 'Payment Successful!',
+    html: `
+      <div style="text-align:center;">
+        <i class="fas fa-check-circle" style="font-size: 64px; color: #4caf50; margin-bottom: 16px;"></i>
+        <p>Your payment of <strong>KSh ${selectedAmount.toLocaleString()}</strong> was successful!</p>
+        <p style="color: #666; font-size: 0.9rem; margin-top: 12px;">Redirecting to your report dashboard...</p>
+      </div>
+    `,
+    icon: 'success',
+    timer: 2000,
+    showConfirmButton: false
+  });
+
+  // Redirect to dashboard
+  window.location.href = 'dash.html';
+
+            }
+          } catch (verificationError) {
+            console.error('Payment verification error:', verificationError);
+            throw new Error(verificationError.message || 'Payment verification failed');
+          }
+        } else {
+          throw new Error('Payment initiation failed - no reference received');
+        }
+      } catch (error) {
+        console.error('Payment error:', error);
+        Swal.fire({
+          title: 'Payment Failed',
+          html: `
+            <p>${error.message || 'Unable to process payment. Please try again.'}</p>
+            <p style="font-size: 0.85rem; color: #666; margin-top: 12px;">
+              Please ensure your phone number is correct and try again.
+            </p>
+          `,
+          icon: 'error',
+          confirmButtonText: 'Try Again',
+          confirmButtonColor: '#4361ee'
+        });
+        
+        // Reset selections on failure
+        selectedPlan = null;
+        selectedAmount = null;
+        userPhoneNumber = null;
+      }
+    }
   </script>
 </body>
 </html>
