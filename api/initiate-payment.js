@@ -16,8 +16,8 @@ export default async function handler(req, res) {
     // ============================================
     const SWIFTWALLET_CONFIG = {
       apiUrl: 'https://swiftwallet.stkpush.co.ke/payments/api/stk-push/',
-      platform: 'bdd8905fd40811b83bc1d6c626d7f587dad7fcc668b3cf215d16574734fea973', // ⚠️ CHANGE THIS: Your SwiftWallet platform ID
-      account_id: '000358' // ⚠️ CHANGE THIS: Your SwiftWallet account ID
+      platform: '42279b10a763c745b0d9468a3ac2d409e8b4e50fa811a28521d85108613656a2', // ⚠️ CHANGE THIS: Your SwiftWallet platform ID
+      account_id: '000351' // ⚠️ CHANGE THIS: Your SwiftWallet account ID
     };
     // ============================================
 
