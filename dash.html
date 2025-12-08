@@ -22,7 +22,7 @@
       --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
       --transition: all 0.3s ease;
-      --radius: 16px;
+      --radius: 12px;
       --container: 1200px;
     }
     
@@ -38,12 +38,13 @@
       color: var(--dark);
       line-height: 1.6;
       min-height: 100vh;
+      font-size: 16px;
     }
     
     /* Header */
     .header {
       background: white;
-      padding: 1rem 0;
+      padding: 0.8rem 0;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
@@ -53,7 +54,7 @@
     .header-container {
       max-width: var(--container);
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -62,94 +63,97 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
       text-decoration: none;
       color: var(--primary);
       font-weight: 800;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
     
     .logo-icon {
       background: var(--gradient);
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
+      font-size: 0.9rem;
     }
     
     /* Main Content */
     .main-container {
       max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
     }
     
     /* Success Header */
     .success-header {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       padding-top: 1rem;
     }
     
     .success-icon {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       background: linear-gradient(135deg, #4CAF50, #45a049);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1.5rem;
+      margin: 0 auto 1rem;
       color: white;
-      font-size: 2.5rem;
+      font-size: 2rem;
     }
     
     .success-title {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+      margin-bottom: 0.4rem;
       color: var(--dark);
+      line-height: 1.2;
     }
     
     .success-subtitle {
       color: var(--muted);
-      font-size: 1.1rem;
+      font-size: 1rem;
+      line-height: 1.4;
     }
     
     /* Dashboard Cards */
     .dashboard-grid {
       display: grid;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
     }
     
     .dashboard-card {
       background: white;
       border-radius: var(--radius);
-      padding: 2rem;
+      padding: 1.5rem;
       box-shadow: var(--card-shadow);
     }
     
     .card-header {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
       padding-bottom: 1rem;
       border-bottom: 2px solid #f0f0f0;
     }
     
     .card-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
     
     .card-icon.email {
@@ -165,9 +169,10 @@
     }
     
     .card-title {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--dark);
+      line-height: 1.2;
     }
     
     /* Email Alert Card */
@@ -180,22 +185,23 @@
       display: inline-block;
       background: linear-gradient(135deg, #4361ee, #3a0ca3);
       color: white;
-      padding: 0.25rem 0.75rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 6px;
       font-weight: 600;
-      margin: 0 0.25rem;
+      margin: 0 0.2rem;
+      font-size: 0.95rem;
     }
     
     .alert-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
     }
     
     .check-email-box {
       background: white;
-      border-radius: 10px;
-      padding: 1.5rem;
+      border-radius: 8px;
+      padding: 1.2rem;
       margin-top: 1rem;
       border-left: 4px solid #4361ee;
     }
@@ -203,10 +209,11 @@
     .check-email-title {
       font-weight: 700;
       color: var(--dark);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      font-size: 1rem;
     }
     
     .check-email-list {
@@ -217,14 +224,17 @@
     .check-email-list li {
       display: flex;
       align-items: flex-start;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
       color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
     
     .check-email-list li i {
       color: #4361ee;
-      margin-top: 0.2rem;
+      margin-top: 0.1rem;
+      font-size: 0.8rem;
     }
     
     /* Status Card */
@@ -232,7 +242,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 0;
+      padding: 0.8rem 0;
       border-bottom: 1px solid #f0f0f0;
     }
     
@@ -243,11 +253,13 @@
     .status-label {
       color: var(--muted);
       font-weight: 500;
+      font-size: 0.9rem;
     }
     
     .status-value {
       font-weight: 600;
       color: var(--dark);
+      font-size: 0.9rem;
     }
     
     .status-value.success {
@@ -267,10 +279,10 @@
     .feature-item {
       display: flex;
       align-items: flex-start;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-      padding: 0.75rem;
-      border-radius: 8px;
+      gap: 0.6rem;
+      margin-bottom: 0.8rem;
+      padding: 0.6rem;
+      border-radius: 6px;
       transition: var(--transition);
     }
     
@@ -279,57 +291,108 @@
     }
     
     .feature-icon {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       background: rgba(67, 97, 238, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--primary);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       flex-shrink: 0;
       margin-top: 0.1rem;
     }
     
     .feature-text {
       color: #555;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    
+    /* Timer */
+    .timer-container {
+      text-align: center;
+      margin: 1.5rem 0;
+      padding: 1.2rem;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+    }
+    
+    .timer-title {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+    }
+    
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+    
+    .timer-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .timer-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: rgba(67, 97, 238, 0.1);
+      width: 55px;
+      height: 55px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.4rem;
+    }
+    
+    .timer-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 600;
     }
     
     /* Action Buttons */
     .action-buttons {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
     }
     
     .action-btn {
-      flex: 1;
-      min-width: 200px;
-      padding: 1rem;
-      border-radius: 12px;
+      padding: 0.9rem;
+      border-radius: 10px;
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
       border: none;
-      font-size: 1rem;
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
       text-decoration: none;
+      width: 100%;
     }
     
     .action-btn.primary {
       background: var(--gradient);
       color: white;
-      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+      box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
     }
     
     .action-btn.primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 25px rgba(67, 97, 238, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
     }
     
     .action-btn.secondary {
@@ -343,116 +406,121 @@
       background: rgba(67, 97, 238, 0.05);
     }
     
-    /* Timer */
-    .timer-container {
-      text-align: center;
-      margin: 2rem 0;
-      padding: 1.5rem;
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: var(--card-shadow);
-    }
-    
-    .timer-title {
-      font-size: 1rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-    
-    .timer {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-    
-    .timer-unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .timer-value {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--primary);
-      background: rgba(67, 97, 238, 0.1);
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.5rem;
-    }
-    
-    .timer-label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-    
     /* Footer */
     footer {
       background: var(--dark);
       color: #ddd;
-      padding: 2rem 0;
-      margin-top: 3rem;
+      padding: 1.5rem 0;
+      margin-top: 2.5rem;
     }
     
     .footer-container {
       max-width: var(--container);
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1rem;
       text-align: center;
+    }
+    
+    .footer-container p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 0.8rem;
     }
     
     .copyright {
       color: #888;
-      font-size: 0.9rem;
-      margin-top: 1rem;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
     }
     
-    /* Mobile Responsive */
+    /* ==================== */
+    /* MOBILE RESPONSIVE */
+    /* ==================== */
     @media (max-width: 768px) {
       .main-container {
-        padding: 0 1rem;
+        margin: 1rem auto;
       }
       
       .success-title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
       }
       
       .success-subtitle {
-        font-size: 1rem;
+        font-size: 0.95rem;
       }
       
       .dashboard-card {
-        padding: 1.5rem;
+        padding: 1.2rem;
       }
       
-      .action-buttons {
-        flex-direction: column;
+      .card-header {
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.8rem;
       }
       
-      .action-btn {
-        min-width: 100%;
+      .card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
       }
       
-      .timer {
-        gap: 0.5rem;
+      .card-title {
+        font-size: 1.1rem;
+      }
+      
+      .alert-text {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+      }
+      
+      .check-email-box {
+        padding: 1rem;
+      }
+      
+      .timer-container {
+        padding: 1rem;
+        margin: 1.2rem 0;
       }
       
       .timer-value {
         width: 50px;
         height: 50px;
-        font-size: 1.5rem;
+        font-size: 1.6rem;
+      }
+      
+      .action-btn {
+        padding: 0.8rem;
+        font-size: 0.9rem;
       }
     }
     
     @media (max-width: 480px) {
+      .header-container {
+        padding: 0 0.8rem;
+      }
+      
+      .logo {
+        font-size: 1.2rem;
+      }
+      
+      .logo-icon {
+        width: 34px;
+        height: 34px;
+      }
+      
+      .success-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+      }
+      
       .success-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+      }
+      
+      .success-subtitle {
+        font-size: 0.9rem;
       }
       
       .card-header {
@@ -461,10 +529,66 @@
         gap: 0.5rem;
       }
       
+      .card-icon {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 0.3rem;
+      }
+      
+      .email-highlight {
+        font-size: 0.9rem;
+        padding: 0.15rem 0.5rem;
+      }
+      
+      .timer {
+        gap: 0.6rem;
+      }
+      
+      .timer-value {
+        width: 45px;
+        height: 45px;
+        font-size: 1.4rem;
+      }
+      
+      .timer-label {
+        font-size: 0.7rem;
+      }
+      
+      .status-item {
+        padding: 0.7rem 0;
+      }
+      
+      .status-label, .status-value {
+        font-size: 0.85rem;
+      }
+      
+      .feature-item {
+        padding: 0.5rem;
+      }
+      
+      .feature-text {
+        font-size: 0.85rem;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .success-title {
+        font-size: 1.3rem;
+      }
+      
+      .card-title {
+        font-size: 1rem;
+      }
+      
       .timer-value {
         width: 40px;
         height: 40px;
         font-size: 1.2rem;
+      }
+      
+      .action-btn {
+        padding: 0.75rem;
+        font-size: 0.85rem;
       }
     }
   </style>
@@ -675,7 +799,10 @@
             html: 'Please check your email inbox now. If you haven\'t received your report, check your spam folder or click "Need Help?" below.',
             icon: 'info',
             confirmButtonText: 'OK',
-            confirmButtonColor: '#4361ee'
+            confirmButtonColor: '#4361ee',
+            customClass: {
+              container: 'swal-container'
+            }
           });
         } else {
           if (seconds === 0) {
@@ -710,7 +837,10 @@
           html: 'Your report is still being generated. Please allow a few more minutes and check your email again.',
           icon: 'info',
           confirmButtonText: 'OK',
-          confirmButtonColor: '#4361ee'
+          confirmButtonColor: '#4361ee',
+          customClass: {
+            container: 'swal-container'
+          }
         });
         
         // Restore button
@@ -726,15 +856,15 @@
       Swal.fire({
         title: 'Need Help With Your Report?',
         html: `
-          <div style="text-align:left;">
+          <div style="text-align:left; font-size: 0.9rem;">
             <p><strong>Common Issues:</strong></p>
-            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+            <ul style="margin-left: 1.2rem; margin-bottom: 0.8rem;">
               <li>Report not in inbox - check spam/junk folder</li>
               <li>Wrong email address - contact support with your reference number</li>
               <li>Payment verified but no report - allow up to 30 minutes</li>
             </ul>
             <p><strong>Contact Support:</strong></p>
-            <p>Email: support@crbcheck.co.ke<br>
+            <p style="font-size: 0.85rem;">Email: support@crbcheck.co.ke<br>
             Phone: +254 700 123 456<br>
             Reference: ${paymentData?.reference || 'N/A'}</p>
           </div>
@@ -743,7 +873,10 @@
         confirmButtonText: 'OK',
         confirmButtonColor: '#4361ee',
         showCancelButton: true,
-        cancelButtonText: 'Close'
+        cancelButtonText: 'Close',
+        customClass: {
+          container: 'swal-container'
+        }
       });
     });
     
@@ -755,7 +888,10 @@
           text: 'Your report should now be in your email. Please check your inbox.',
           icon: 'success',
           confirmButtonText: 'Got it!',
-          confirmButtonColor: '#4361ee'
+          confirmButtonColor: '#4361ee',
+          customClass: {
+            container: 'swal-container'
+          }
         });
       }
     }, 300000); // 5 minutes

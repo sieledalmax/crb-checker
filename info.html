@@ -37,7 +37,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1rem;
+      font-size: 16px;
     }
     
     h1, h2, h3, h4 {
@@ -62,10 +63,10 @@
     /* Form Container */
     .form-container {
       width: 100%;
-      max-width: 500px;
+      max-width: 480px;
       background: white;
-      border-radius: 24px;
-      padding: 2.5rem;
+      border-radius: 20px;
+      padding: 2rem;
       box-shadow: var(--card-shadow);
       position: relative;
       overflow: hidden;
@@ -78,7 +79,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 6px;
+      height: 5px;
       background: var(--gradient);
     }
     
@@ -86,32 +87,33 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
       color: var(--primary);
       font-weight: 800;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
     
     .logo-icon {
       background: var(--gradient);
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
+      font-size: 0.9rem;
     }
     
     .form-header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
     
     .form-header h2 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -120,20 +122,21 @@
     
     .form-header p {
       color: #666;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
     
     /* Form Elements */
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
     
     .form-label {
       display: block;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       color: #444;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
     
     .input-wrapper {
@@ -144,18 +147,18 @@
     
     .input-icon {
       position: absolute;
-      left: 1rem;
+      left: 0.9rem;
       color: var(--primary);
       opacity: 0.7;
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
     
     .form-input {
       width: 100%;
-      padding: 1rem 1rem 1rem 3rem;
+      padding: 0.85rem 0.85rem 0.85rem 2.7rem;
       border: 2px solid #e0e0e0;
-      border-radius: 12px;
-      font-size: 1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
       transition: var(--transition);
       background: #fafafa;
     }
@@ -169,18 +172,24 @@
     
     .form-input::placeholder {
       color: #999;
+      font-size: 0.9rem;
     }
     
     /* Password Visibility Toggle */
     .password-toggle {
       position: absolute;
-      right: 1rem;
+      right: 0.9rem;
       background: none;
       color: #777;
-      font-size: 1rem;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: var(--transition);
       z-index: 2;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .password-toggle:hover {
@@ -191,16 +200,16 @@
     .checkbox-group {
       display: flex;
       align-items: flex-start;
-      gap: 0.75rem;
-      margin: 1.5rem 0;
+      gap: 0.6rem;
+      margin: 1.2rem 0 1.5rem;
     }
     
     .checkbox-group input[type="checkbox"] {
       appearance: none;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border: 2px solid #ddd;
-      border-radius: 5px;
+      border-radius: 4px;
       cursor: pointer;
       position: relative;
       flex-shrink: 0;
@@ -220,12 +229,12 @@
       left: 50%;
       transform: translate(-50%, -50%);
       color: white;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: bold;
     }
     
     .checkbox-group label {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #555;
       line-height: 1.4;
     }
@@ -243,24 +252,24 @@
     /* Submit Button */
     .submit-btn {
       width: 100%;
-      padding: 1rem;
+      padding: 0.9rem;
       background: var(--gradient);
       color: white;
-      border-radius: 12px;
-      font-size: 1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
       font-weight: 700;
       margin-top: 0.5rem;
-      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+      box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
       transition: var(--transition);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
     }
     
     .submit-btn:hover:not(:disabled) {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 25px rgba(67, 97, 238, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
     }
     
     .submit-btn:active:not(:disabled) {
@@ -276,7 +285,7 @@
     .progress-steps {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       position: relative;
     }
     
@@ -293,8 +302,8 @@
     }
     
     .step {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: white;
       border: 2px solid #eee;
@@ -303,6 +312,7 @@
       justify-content: center;
       font-weight: 700;
       color: #999;
+      font-size: 0.9rem;
       position: relative;
       z-index: 2;
       transition: var(--transition);
@@ -318,6 +328,7 @@
       background: #2ed573;
       border-color: #2ed573;
       color: white;
+      font-size: 0.8rem;
     }
     
     /* Loading Overlay */
@@ -336,6 +347,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 1rem;
     }
     
     .loading-overlay.active {
@@ -345,24 +357,25 @@
     
     .loading-content {
       text-align: center;
-      max-width: 400px;
-      padding: 2rem;
+      width: 100%;
+      max-width: 320px;
+      padding: 1.5rem;
       background: white;
-      border-radius: 20px;
+      border-radius: 16px;
       box-shadow: var(--card-shadow-hover);
     }
     
     .loading-icon {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       background: var(--gradient);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1.5rem;
+      margin: 0 auto 1rem;
       color: white;
-      font-size: 2rem;
+      font-size: 1.5rem;
       animation: pulse 2s infinite;
     }
     
@@ -373,45 +386,46 @@
     }
     
     .loading-text {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       color: var(--dark);
     }
     
     .loading-subtext {
       color: #666;
-      margin-bottom: 2rem;
-      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
     
     /* Progress Bar */
     .progress-bar-container {
       width: 100%;
-      height: 8px;
+      height: 6px;
       background: #f0f0f0;
-      border-radius: 4px;
+      border-radius: 3px;
       overflow: hidden;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
     
     .progress-bar {
       height: 100%;
       background: var(--gradient);
       width: 0%;
-      border-radius: 4px;
+      border-radius: 3px;
       transition: width 0.3s ease;
     }
     
     .progress-percentage {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
     }
     
     .progress-time {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #888;
     }
     
@@ -428,57 +442,217 @@
     
     .error-message {
       color: #ff4757;
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
       display: none;
+      line-height: 1.3;
     }
     
     .input-wrapper.error .error-message {
       display: block;
     }
     
-    /* Responsive */
-    @media (max-width: 576px) {
-      body {
-        padding: 1rem;
-      }
-      
-      .form-container {
-        padding: 2rem 1.5rem;
-      }
-      
-      .form-header h2 {
-        font-size: 1.6rem;
-      }
-      
-      .progress-steps {
-        margin-bottom: 2rem;
-      }
-      
-      .step {
-        width: 32px;
-        height: 32px;
-        font-size: 0.9rem;
-      }
-      
-      .loading-content {
-        margin: 1rem;
-        padding: 1.5rem;
-      }
+    /* Back link */
+    .back-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #666;
     }
     
-    @media (max-width: 400px) {
+    .back-link a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .back-link a:hover {
+      color: var(--secondary);
+    }
+    
+    /* ==================== */
+    /* MOBILE RESPONSIVE */
+    /* ==================== */
+    @media (max-width: 768px) {
+      body {
+        padding: 0.8rem;
+        font-size: 15px;
+      }
+      
       .form-container {
-        padding: 1.5rem 1.25rem;
+        padding: 1.8rem 1.5rem;
+        border-radius: 18px;
       }
       
       .logo {
         font-size: 1.3rem;
+        margin-bottom: 1rem;
       }
       
       .logo-icon {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
+      }
+      
+      .form-header h2 {
+        font-size: 1.4rem;
+      }
+      
+      .form-header p {
+        font-size: 0.85rem;
+      }
+      
+      .progress-steps {
+        margin-bottom: 1.8rem;
+      }
+      
+      .step {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85rem;
+      }
+      
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      
+      .form-label {
+        font-size: 0.85rem;
+      }
+      
+      .input-icon {
+        left: 0.8rem;
+        font-size: 0.85rem;
+      }
+      
+      .form-input {
+        padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+        font-size: 0.9rem;
+        border-radius: 8px;
+      }
+      
+      .password-toggle {
+        right: 0.8rem;
+        font-size: 0.85rem;
+      }
+      
+      .checkbox-group {
+        margin: 1rem 0 1.2rem;
+      }
+      
+      .checkbox-group label {
+        font-size: 0.8rem;
+      }
+      
+      .submit-btn {
+        padding: 0.85rem;
+        font-size: 0.9rem;
+      }
+      
+      .back-link {
+        font-size: 0.85rem;
+        margin-top: 1.2rem;
+      }
+      
+      .loading-content {
+        padding: 1.2rem;
+        max-width: 280px;
+      }
+      
+      .loading-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+      }
+      
+      .loading-text {
+        font-size: 1rem;
+      }
+      
+      .loading-subtext {
+        font-size: 0.85rem;
+        margin-bottom: 1.2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 1.5rem 1.2rem;
+        border-radius: 16px;
+      }
+      
+      .logo {
+        font-size: 1.2rem;
+        gap: 0.5rem;
+      }
+      
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .form-header h2 {
+        font-size: 1.3rem;
+      }
+      
+      .step {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+      }
+      
+      .form-input {
+        padding: 0.7rem 0.7rem 0.7rem 2.3rem;
+      }
+      
+      .checkbox-group {
+        gap: 0.5rem;
+      }
+      
+      .checkbox-group input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+      }
+      
+      .submit-btn {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+      
+      .back-link {
+        font-size: 0.8rem;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .form-container {
+        padding: 1.3rem 1rem;
+      }
+      
+      .logo {
+        font-size: 1.1rem;
+      }
+      
+      .logo-icon {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .form-header h2 {
+        font-size: 1.2rem;
+      }
+      
+      .form-input {
+        padding: 0.65rem 0.65rem 0.65rem 2.2rem;
+        font-size: 0.85rem;
+      }
+      
+      .submit-btn {
+        padding: 0.75rem;
+        font-size: 0.85rem;
       }
     }
   </style>
@@ -503,7 +677,7 @@
   
   <!-- Form Header -->
   <div class="form-header">
-    <h2>Create Your Account</h2>
+    <h2>Create Account</h2>
     <p>Start your journey to financial freedom</p>
   </div>
   
@@ -573,6 +747,11 @@
       <span>Create Account</span>
       <i class="fas fa-arrow-right"></i>
     </button>
+    
+    <div class="back-link">
+      <i class="fas fa-arrow-left"></i>
+      <a href="index.html">Back to Home</a>
+    </div>
   </form>
 </div>
 
@@ -582,8 +761,8 @@
     <div class="loading-icon">
       <i class="fas fa-shield-alt"></i>
     </div>
-    <h3 class="loading-text">Creating Your Account</h3>
-    <p class="loading-subtext">Please wait while we set up your account. This will take just a moment.</p>
+    <h3 class="loading-text">Creating Account</h3>
+    <p class="loading-subtext">Please wait while we set up your account.</p>
     
     <div class="progress-percentage" id="progressPercentage">0%</div>
     <div class="progress-bar-container">
@@ -695,10 +874,10 @@
       // Show loading overlay
       loadingOverlay.classList.add('active');
       
-      // Animate progress bar for 5 seconds
+      // Animate progress bar for 4 seconds
       let progress = 0;
-      const totalTime = 5000; // 5 seconds
-      const interval = 50; // Update every 50ms
+      const totalTime = 4000; // 4 seconds
+      const interval = 40; // Update every 40ms
       const increment = (interval / totalTime) * 100;
       
       const progressInterval = setInterval(() => {
@@ -728,7 +907,7 @@
             
             // Redirect to get-info.html
             window.location.href = 'get-report.html';
-          }, 800);
+          }, 600);
         }
         
         // Update progress bar and text

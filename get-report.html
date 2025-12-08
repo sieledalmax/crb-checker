@@ -22,7 +22,7 @@
       --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
       --transition: all 0.3s ease;
-      --radius: 16px;
+      --radius: 12px;
       --container: 1200px;
     }
     
@@ -37,22 +37,23 @@
       background: var(--gradient-light);
       color: var(--dark);
       line-height: 1.6;
+      font-size: 16px;
     }
     
     /* Header */
     .header {
       background: white;
-      padding: 1rem 0;
+      padding: 0.8rem 0;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
     }
     
     .header-container {
       max-width: var(--container);
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -61,85 +62,149 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
       text-decoration: none;
       color: var(--primary);
       font-weight: 800;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
     
     .logo-icon {
       background: var(--gradient);
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
+      font-size: 0.9rem;
     }
     
-    .nav {
+    /* Mobile Menu Button */
+    .mobile-menu-btn {
       display: flex;
-      gap: 2rem;
       align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--gradient);
+      color: white;
+      border-radius: 8px;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 1001;
     }
     
-    .nav a {
+    /* Mobile Navigation Menu */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: white;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+      padding: 5rem 1.5rem 2rem;
+      transition: var(--transition);
+      z-index: 1000;
+      overflow-y: auto;
+    }
+    
+    .mobile-nav.active {
+      right: 0;
+    }
+    
+    .mobile-nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 999;
+    }
+    
+    .mobile-nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      list-style: none;
+    }
+    
+    .mobile-nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      color: var(--dark);
       text-decoration: none;
-      color: #555;
       font-weight: 600;
-      font-size: 0.95rem;
-      position: relative;
-      padding: 0.5rem 0;
+      font-size: 1rem;
+      border-radius: 8px;
       transition: var(--transition);
     }
     
-    .nav a:hover {
+    .mobile-nav-links a:hover {
+      background: var(--gradient-light);
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+    
+    .mobile-nav-links a i {
+      width: 20px;
+      text-align: center;
       color: var(--primary);
     }
     
-    .nav a::after {
-      content: '';
+    .nav-close-btn {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: var(--transition);
-    }
-    
-    .nav a:hover::after {
-      width: 100%;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--muted);
+      cursor: pointer;
     }
     
     /* Main Content */
     .main-container {
       max-width: var(--container);
-      margin: 3rem auto;
-      padding: 0 1.5rem;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
     
     .page-header {
       text-align: center;
-      margin-bottom: 3.5rem;
+      margin-bottom: 2.5rem;
     }
     
     .page-header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.75rem;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      line-height: 1.2;
     }
     
     .page-header p {
       color: var(--muted);
-      font-size: 1.1rem;
+      font-size: 1rem;
       max-width: 600px;
       margin: 0 auto;
+      line-height: 1.5;
     }
     
     /* Phone Modal Styles */
@@ -154,6 +219,7 @@
       z-index: 1000;
       align-items: center;
       justify-content: center;
+      padding: 1rem;
     }
     
     .phone-modal.active {
@@ -163,8 +229,8 @@
     .modal-content {
       background: white;
       border-radius: var(--radius);
-      padding: 2.5rem;
-      width: 90%;
+      padding: 1.5rem;
+      width: 100%;
       max-width: 400px;
       box-shadow: var(--card-shadow-hover);
       animation: modalSlide 0.3s ease;
@@ -182,35 +248,38 @@
     }
     
     .modal-title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
       color: var(--dark);
       text-align: center;
+      line-height: 1.3;
     }
     
     .modal-subtitle {
       color: var(--muted);
       text-align: center;
-      margin-bottom: 2rem;
-      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
     
     .phone-input-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
     
     .phone-label {
       display: block;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       font-weight: 600;
       color: var(--dark);
+      font-size: 0.9rem;
     }
     
     .phone-input-container {
       display: flex;
       align-items: center;
       border: 2px solid #e0e0e0;
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
       transition: var(--transition);
     }
@@ -222,40 +291,42 @@
     
     .country-code {
       background: #f5f5f5;
-      padding: 0.75rem 1rem;
+      padding: 0.7rem 0.8rem;
       font-weight: 600;
       color: var(--dark);
       border-right: 2px solid #e0e0e0;
+      font-size: 0.9rem;
     }
     
     .phone-input {
       flex: 1;
       border: none;
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
+      padding: 0.7rem 0.8rem;
+      font-size: 0.95rem;
       outline: none;
       color: var(--dark);
     }
     
     .phone-input::placeholder {
       color: #999;
+      font-size: 0.9rem;
     }
     
     .modal-buttons {
       display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
     }
     
     .modal-btn {
       flex: 1;
-      padding: 0.875rem;
-      border-radius: 10px;
+      padding: 0.8rem;
+      border-radius: 8px;
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
       border: none;
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
     
     .modal-btn.cancel {
@@ -270,33 +341,26 @@
     .modal-btn.submit {
       background: var(--gradient);
       color: white;
-      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+      box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
     }
     
     .modal-btn.submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 25px rgba(67, 97, 238, 0.4);
+      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
     }
     
     /* Pricing Cards */
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2.5rem;
-      margin-bottom: 4rem;
-    }
-    
-    @media (max-width: 768px) {
-      .pricing-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
     }
     
     .pricing-card {
       background: white;
       border-radius: var(--radius);
-      padding: 2.5rem;
+      padding: 1.5rem;
       box-shadow: var(--card-shadow);
       transition: var(--transition);
       position: relative;
@@ -308,7 +372,7 @@
     }
     
     .pricing-card:hover {
-      transform: translateY(-10px);
+      transform: translateY(-5px);
       box-shadow: var(--card-shadow-hover);
       border-color: rgba(67, 97, 238, 0.1);
     }
@@ -321,106 +385,109 @@
     .popular-badge {
       position: absolute;
       top: 0;
-      right: 2.5rem;
+      right: 1.5rem;
       background: var(--gradient);
       color: white;
-      padding: 0.5rem 1.5rem;
-      border-radius: 0 0 10px 10px;
+      padding: 0.4rem 1.2rem;
+      border-radius: 0 0 8px 8px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
     
     .card-header {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
     
     .plan-title {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 800;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       color: var(--dark);
+      line-height: 1.2;
     }
     
     .plan-subtitle {
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
     
     .price {
       display: flex;
       align-items: baseline;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
     
     .price-amount {
-      font-size: 3rem;
+      font-size: 2.2rem;
       font-weight: 800;
       color: var(--dark);
     }
     
     .price-currency {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--muted);
       font-weight: 600;
-      margin-left: 0.25rem;
+      margin-left: 0.2rem;
     }
     
     .price-period {
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       margin-left: auto;
     }
     
     .features-list {
       flex-grow: 1;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
     
     .features-title {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--muted);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       font-weight: 700;
     }
     
     .feature-item {
       display: flex;
       align-items: flex-start;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
     }
     
     .feature-icon {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       background: rgba(67, 97, 238, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--primary);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       flex-shrink: 0;
       margin-top: 0.1rem;
     }
     
     .feature-text {
       color: #555;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
     
     .cta-button {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
       width: 100%;
-      padding: 1rem;
-      border-radius: 12px;
+      padding: 0.9rem;
+      border-radius: 10px;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       transition: var(--transition);
       margin-top: auto;
@@ -430,12 +497,12 @@
     .cta-button.primary {
       background: var(--gradient);
       color: white;
-      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+      box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
     }
     
     .cta-button.primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 25px rgba(67, 97, 238, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
     }
     
     .cta-button.secondary {
@@ -451,74 +518,182 @@
     
     /* Benefits Section */
     .benefits-section {
-      margin-top: 5rem;
+      margin-top: 3rem;
     }
     
     .benefits-title {
       text-align: center;
-      font-size: 2rem;
-      margin-bottom: 3rem;
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
       color: var(--dark);
+      line-height: 1.2;
     }
     
     .benefits-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
     
     .benefit-card {
       background: white;
       border-radius: var(--radius);
-      padding: 2rem;
+      padding: 1.5rem;
       box-shadow: var(--card-shadow);
       display: flex;
-      gap: 1.5rem;
+      gap: 1.2rem;
       align-items: flex-start;
       transition: var(--transition);
     }
     
     .benefit-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-3px);
       box-shadow: var(--card-shadow-hover);
     }
     
     .benefit-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 12px;
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
       background: var(--gradient);
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       flex-shrink: 0;
     }
     
     .benefit-content h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
       color: var(--dark);
+      line-height: 1.2;
     }
     
     .benefit-content p {
       color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      margin-top: 3rem;
+      padding: 2rem 0;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+    }
+    
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .contact-title {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+    
+    .contact-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    
+    .contact-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 0.9rem;
+    }
+    
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
       font-size: 0.95rem;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+    
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    }
+    
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .contact-submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--gradient);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .contact-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+    }
+    
+    .contact-info {
+      margin-top: 2rem;
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+    
+    .contact-info p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
     }
     
     /* FAQ Section */
     .faq-section {
-      margin-top: 5rem;
-      padding-top: 3rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
       border-top: 1px solid #eee;
     }
     
     .faq-title {
       text-align: center;
-      font-size: 2rem;
-      margin-bottom: 3rem;
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
       color: var(--dark);
+      line-height: 1.2;
     }
     
     .faq-grid {
@@ -529,19 +704,20 @@
     .faq-item {
       background: white;
       border-radius: var(--radius);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       overflow: hidden;
       box-shadow: var(--card-shadow);
     }
     
     .faq-question {
-      padding: 1.5rem;
+      padding: 1.2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
       font-weight: 600;
       color: var(--dark);
+      font-size: 0.95rem;
     }
     
     .faq-question:hover {
@@ -551,18 +727,21 @@
     .faq-toggle {
       transition: var(--transition);
       color: var(--primary);
+      font-size: 0.9rem;
     }
     
     .faq-answer {
-      padding: 0 1.5rem;
+      padding: 0 1.2rem;
       max-height: 0;
       overflow: hidden;
       transition: var(--transition);
       color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
     
     .faq-item.active .faq-answer {
-      padding: 0 1.5rem 1.5rem;
+      padding: 0 1.2rem 1.2rem;
       max-height: 500px;
     }
     
@@ -574,56 +753,57 @@
     footer {
       background: var(--dark);
       color: #ddd;
-      padding: 3rem 0 2rem;
-      margin-top: 5rem;
+      padding: 2rem 0 1.5rem;
+      margin-top: 3rem;
     }
     
     .footer-container {
       max-width: var(--container);
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 1rem;
     }
     
     .footer-content {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
     }
     
     .footer-logo {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
       color: white;
       font-weight: 800;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
     }
     
     .footer-logo-icon {
       background: white;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--primary);
+      font-size: 0.9rem;
     }
     
     .footer-description {
       color: #aaa;
-      font-size: 0.95rem;
-      line-height: 1.6;
+      font-size: 0.85rem;
+      line-height: 1.5;
     }
     
     .footer-heading {
       color: white;
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
       position: relative;
-      padding-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
     }
     
     .footer-heading::after {
@@ -631,8 +811,8 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 40px;
-      height: 3px;
+      width: 36px;
+      height: 2px;
       background: var(--accent);
     }
     
@@ -641,13 +821,17 @@
     }
     
     .footer-links li {
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
     }
     
-    .footer-links a {
+    .footer-links a, .footer-links li {
       color: #aaa;
       transition: var(--transition);
       text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
     }
     
     .footer-links a:hover {
@@ -655,62 +839,173 @@
       padding-left: 5px;
     }
     
-    .copyright {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: #888;
-      font-size: 0.9rem;
+    .footer-links i {
+      width: 16px;
+      margin-top: 0.2rem;
     }
     
-    /* Mobile Responsive */
+    .copyright {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #888;
+      font-size: 0.8rem;
+    }
+    
+    /* ==================== */
+    /* MOBILE RESPONSIVE */
+    /* ==================== */
     @media (max-width: 768px) {
-      .header-container {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-      }
-      
-      .nav {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
+      .main-container {
+        margin: 1.5rem auto;
       }
       
       .page-header h1 {
-        font-size: 2rem;
+        font-size: 1.7rem;
+      }
+      
+      .page-header p {
+        font-size: 0.95rem;
+      }
+      
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
       }
       
       .pricing-card {
-        padding: 2rem;
+        padding: 1.3rem;
+      }
+      
+      .popular-badge {
+        right: 1rem;
+        padding: 0.3rem 1rem;
+        font-size: 0.75rem;
       }
       
       .price-amount {
-        font-size: 2.5rem;
+        font-size: 2rem;
+      }
+      
+      .benefits-title, .faq-title, .contact-title {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .benefit-card {
+        padding: 1.2rem;
+      }
+      
+      .benefit-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+      }
+      
+      .faq-question {
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .faq-answer {
+        font-size: 0.85rem;
+      }
+      
+      .contact-section {
+        padding: 1.5rem;
+      }
+      
+      .contact-container {
+        padding: 0;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .header-container {
+        padding: 0 0.8rem;
+      }
+      
+      .logo {
+        font-size: 1.2rem;
+      }
+      
+      .logo-icon {
+        width: 34px;
+        height: 34px;
+      }
+      
+      .mobile-nav {
+        width: 250px;
+      }
+      
+      .page-header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .pricing-card {
+        padding: 1.2rem;
+      }
+      
+      .plan-title {
+        font-size: 1.2rem;
+      }
+      
+      .price-amount {
+        font-size: 1.8rem;
       }
       
       .modal-content {
-        padding: 2rem 1.5rem;
+        padding: 1.2rem;
       }
       
       .modal-buttons {
         flex-direction: column;
       }
+      
+      .benefit-card {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      
+      .benefit-icon {
+        margin: 0 auto;
+      }
+      
+      .contact-form {
+        padding: 0;
+      }
     }
     
-    @media (max-width: 480px) {
-      .nav {
-        gap: 1rem;
-        font-size: 0.9rem;
+    @media (max-width: 360px) {
+      .page-header h1 {
+        font-size: 1.4rem;
       }
       
       .pricing-card {
-        padding: 1.5rem;
+        padding: 1rem;
       }
       
-      .page-header h1 {
-        font-size: 1.8rem;
+      .plan-title {
+        font-size: 1.1rem;
+      }
+      
+      .feature-text {
+        font-size: 0.85rem;
+      }
+      
+      .cta-button {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+      
+      .mobile-nav {
+        width: 220px;
       }
     }
   </style>
@@ -726,13 +1021,27 @@
         <span>CRB Check</span>
       </a>
       
-      <nav class="nav" aria-label="main">
-        <a href="#">Home</a>
-        <a href="#">Features</a>
-        <a href="#">Reviews</a>
-        <a href="#">FAQ</a>
-        <a href="#">Contact</a>
-      </nav>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <!-- Mobile Navigation Overlay -->
+      <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+      
+      <!-- Mobile Navigation Menu -->
+      <div class="mobile-nav" id="mobileNav">
+        <button class="nav-close-btn" id="navCloseBtn">
+          <i class="fas fa-times"></i>
+        </button>
+        <ul class="mobile-nav-links">
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="#benefits"><i class="fas fa-star"></i> Features</a></li>
+          <li><a href="#faq"><i class="fas fa-comment"></i> Reviews</a></li>
+          <li><a href="#contact"><i class="fas fa-question-circle"></i> FAQ</a></li>
+          <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="#"><i class="fas fa-shield-alt"></i> Check CRB</a></li>
+        </ul>
+      </div>
     </div>
   </header>
 
@@ -779,7 +1088,7 @@
         <div class="price">
           <span class="price-amount">156</span>
           <span class="price-currency">KSh</span>
-          <span class="price-period">One-time payment</span>
+          <span class="price-period">One-time</span>
         </div>
         
         <div class="features-list">
@@ -823,7 +1132,7 @@
         <div class="price">
           <span class="price-amount">233</span>
           <span class="price-currency">KSh</span>
-          <span class="price-period">One-time payment</span>
+          <span class="price-period">One-time</span>
         </div>
         
         <div class="features-list">
@@ -870,7 +1179,7 @@
     </section>
 
     <!-- Benefits Section -->
-    <section class="benefits-section">
+    <section class="benefits-section" id="benefits">
       <h2 class="benefits-title">Why Choose Express CRB Check</h2>
       <div class="benefits-grid">
         <div class="benefit-card">
@@ -905,8 +1214,43 @@
       </div>
     </section>
 
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="contact-container">
+        <h2 class="contact-title">Contact Us</h2>
+        <p class="contact-subtitle">Have questions or need assistance? Get in touch with our support team.</p>
+        
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" id="contactName" placeholder="John Doe" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" id="contactEmail" placeholder="your@email.com" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-input" id="contactSubject" placeholder="How can we help you?" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" id="contactMessage" placeholder="Please provide details about your inquiry..." required></textarea>
+          </div>
+          
+          <button type="submit" class="contact-submit-btn">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+    
+      </div>
+    </section>
+
     <!-- FAQ Section -->
-    <section class="faq-section">
+    <section class="faq-section" id="faq">
       <h2 class="faq-title">Frequently Asked Questions</h2>
       <div class="faq-grid">
         <div class="faq-item">
@@ -972,23 +1316,14 @@
         <div>
           <h3 class="footer-heading">Quick Links</h3>
           <ul class="footer-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Features</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Reviews</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#benefits">Features</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#">Privacy Policy</a></li>
           </ul>
         </div>
         
-        <div>
-          <h3 class="footer-heading">Contact Us</h3>
-          <ul class="footer-links">
-            <li><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</li>
-            <li><i class="fas fa-phone"></i> +254 700 123 456</li>
-            <li><i class="fas fa-envelope"></i> support@crbcheck.co.ke</li>
-            <li><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM</li>
-          </ul>
-        </div>
       </div>
       
       <div class="copyright">
@@ -1004,6 +1339,35 @@
     // Set current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
     
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+    const navCloseBtn = document.getElementById('navCloseBtn');
+    
+    // Open mobile menu
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileNav.classList.add('active');
+      mobileNavOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+    
+    // Close mobile menu
+    function closeMobileMenu() {
+      mobileNav.classList.remove('active');
+      mobileNavOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // Close menu when clicking close button or overlay
+    navCloseBtn.addEventListener('click', closeMobileMenu);
+    mobileNavOverlay.addEventListener('click', closeMobileMenu);
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+    
     // FAQ toggle functionality
     document.querySelectorAll('.faq-question').forEach(question => {
       question.addEventListener('click', () => {
@@ -1012,7 +1376,30 @@
       });
     });
     
-    // ✅ UPDATED: Correct API endpoints for local development
+    // Contact form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const subject = document.getElementById('contactSubject').value;
+      const message = document.getElementById('contactMessage').value;
+      
+      // Show success message
+      Swal.fire({
+        title: 'Message Sent!',
+        text: 'Thank you for contacting us. We will get back to you within 24 hours.',
+        icon: 'success',
+        confirmButtonColor: '#4361ee',
+        confirmButtonText: 'OK'
+      });
+      
+      // Reset form
+      this.reset();
+    });
+    
+    // Payment API endpoints
     const API_ENDPOINTS = {
         initiatePayment: './api/initiate-payment.js',
         verifyPayment: './api/verify-payment.js',
@@ -1106,7 +1493,7 @@
             <p>You are purchasing:</p>
             <p><strong>Plan:</strong> ${planName}</p>
             <p><strong>Amount:</strong> KSh ${selectedAmount.toLocaleString()}</p>
-            <hr style="margin: 16px 0;">
+            <hr style="margin: 12px 0;">
             <p style="color: #4361ee; font-weight: 600;">You will receive an M-Pesa prompt to pay KSh ${selectedAmount}</p>
             <p style="font-size: 0.85rem; color: #666; margin-top: 8px;">Phone: ${userPhoneNumber}</p>
           </div>
@@ -1115,7 +1502,10 @@
         showCancelButton: true,
         confirmButtonText: 'Proceed to Payment',
         cancelButtonText: 'Cancel',
-        confirmButtonColor: '#4361ee'
+        confirmButtonColor: '#4361ee',
+        customClass: {
+          container: 'swal-container'
+        }
       }).then(async (result) => {
         if (result.isConfirmed) {
           await initiatePayment();
@@ -1131,7 +1521,6 @@
     // Normalize phone via Serverless Function
     async function normalizePhoneNumber(phone) {
       try {
-        // ✅ Use relative path for local development
         const response = await fetch('./api/normalize-phone.js', {
           method: 'POST',
           headers: {
@@ -1156,7 +1545,6 @@
     // Send STK Push via Serverless Function
     async function sendCRBSTK(phoneNumber, amount, plan) {
       try {
-        // ✅ Use relative path for local development
         const response = await fetch('./api/initiate-payment.js', {
           method: 'POST',
           headers: {
@@ -1182,80 +1570,71 @@
       }
     }
     
-    // Replace the checkPaymentStatus function in get-report.html with this improved version:
-
-// Check payment status via Serverless Function - IMPROVED VERSION
-async function checkPaymentStatus(reference, maxAttempts = 30) { // Increased to 30 attempts
-  let attempts = 0;
-  
-  return new Promise((resolve, reject) => {
-    const interval = setInterval(async () => {
-      attempts++;
+    // Check payment status via Serverless Function
+    async function checkPaymentStatus(reference, maxAttempts = 30) {
+      let attempts = 0;
       
-      try {
-        // Use relative path for local development
-        const response = await fetch(`./api/verify-payment.js?reference=${encodeURIComponent(reference)}`);
-        
-        if (!response.ok) {
-          console.warn(`Status check ${attempts}: HTTP error ${response.status}`);
-          // Don't reject on HTTP errors, just continue checking
-          if (attempts >= maxAttempts) {
-            clearInterval(interval);
-            reject(new Error(`Payment verification failed after ${maxAttempts} attempts`));
-          }
-          return;
-        }
+      return new Promise((resolve, reject) => {
+        const interval = setInterval(async () => {
+          attempts++;
+          
+          try {
+            const response = await fetch(`./api/verify-payment.js?reference=${encodeURIComponent(reference)}`);
+            
+            if (!response.ok) {
+              console.warn(`Status check ${attempts}: HTTP error ${response.status}`);
+              if (attempts >= maxAttempts) {
+                clearInterval(interval);
+                reject(new Error(`Payment verification failed after ${maxAttempts} attempts`));
+              }
+              return;
+            }
 
-        const result = await response.json();
-        console.log(`Payment status check ${attempts}:`, result);
+            const result = await response.json();
+            console.log(`Payment status check ${attempts}:`, result);
 
-        // SwiftWallet status checking
-        if (result.success) {
-          const status = (result?.status || '').toString().toLowerCase();
-          const dataStatus = (result?.data?.status || '').toString().toLowerCase();
-          
-          console.log('Statuses found:', { status, dataStatus });
-          
-          // Check for successful payment statuses
-          const isSuccess = ['completed', 'confirmed', 'success', 'paid'].includes(status) || 
-                           ['completed', 'confirmed', 'success', 'paid'].includes(dataStatus);
-          
-          // Check for failed statuses
-          const isFailed = ['failed', 'cancelled', 'rejected', 'declined'].includes(status) ||
-                          ['failed', 'cancelled', 'rejected', 'declined'].includes(dataStatus);
-          
-          if (isSuccess) {
-            clearInterval(interval);
-            console.log('Payment verified as successful!');
-            resolve(true);
-          } else if (isFailed) {
-            clearInterval(interval);
-            console.log('Payment failed or was cancelled');
-            reject(new Error('Payment failed or was cancelled'));
-          } else if (attempts >= maxAttempts) {
-            clearInterval(interval);
-            console.log('Max attempts reached, still pending');
-            reject(new Error('Payment verification timeout - payment may still be processing'));
+            if (result.success) {
+              const status = (result?.status || '').toString().toLowerCase();
+              const dataStatus = (result?.data?.status || '').toString().toLowerCase();
+              
+              const isSuccess = ['completed', 'confirmed', 'success', 'paid'].includes(status) || 
+                               ['completed', 'confirmed', 'success', 'paid'].includes(dataStatus);
+              
+              const isFailed = ['failed', 'cancelled', 'rejected', 'declined'].includes(status) ||
+                              ['failed', 'cancelled', 'rejected', 'declined'].includes(dataStatus);
+              
+              if (isSuccess) {
+                clearInterval(interval);
+                console.log('Payment verified as successful!');
+                resolve(true);
+              } else if (isFailed) {
+                clearInterval(interval);
+                console.log('Payment failed or was cancelled');
+                reject(new Error('Payment failed or was cancelled'));
+              } else if (attempts >= maxAttempts) {
+                clearInterval(interval);
+                console.log('Max attempts reached, still pending');
+                reject(new Error('Payment verification timeout'));
+              }
+            } else {
+              console.warn(`Payment check ${attempts}: API returned success:false`, result);
+              if (attempts >= maxAttempts) {
+                clearInterval(interval);
+                reject(new Error('Payment verification failed - API error'));
+              }
+            }
+          } catch (error) {
+            console.error(`Status check ${attempts} error:`, error.message);
+            
+            if (attempts >= maxAttempts) {
+              clearInterval(interval);
+              reject(new Error(`Payment verification failed after ${maxAttempts} attempts`));
+            }
           }
-          // If status is pending or any other status, continue checking
-        } else {
-          console.warn(`Payment check ${attempts}: API returned success:false`, result);
-          if (attempts >= maxAttempts) {
-            clearInterval(interval);
-            reject(new Error('Payment verification failed - API error'));
-          }
-        }
-      } catch (error) {
-        console.error(`Status check ${attempts} error:`, error.message);
-        
-        if (attempts >= maxAttempts) {
-          clearInterval(interval);
-          reject(new Error(`Payment verification failed after ${maxAttempts} attempts`));
-        }
-      }
-    }, 5000); // Increased to 5 seconds between checks
-  });
-}   
+        }, 5000);
+      });
+    }   
+    
     // Main payment initiation function
     async function initiatePayment() {
       // Show loading
@@ -1284,22 +1663,25 @@ async function checkPaymentStatus(reference, maxAttempts = 30) { // Increased to
             title: 'STK Push Sent!',
             html: `
               <div style="text-align:center;">
-                <i class="fas fa-mobile-alt" style="font-size: 48px; color: #4361ee; margin-bottom: 16px;"></i>
+                <i class="fas fa-mobile-alt" style="font-size: 40px; color: #4361ee; margin-bottom: 12px;"></i>
                 <p>Check your phone for the M-Pesa prompt</p>
-                <p style="font-size: 0.9rem; color: #666; margin-top: 12px;">
+                <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">
                   Enter your M-Pesa PIN to complete payment of <strong>KSh ${selectedAmount}</strong>
                 </p>
-                <p style="font-size: 0.85rem; color: #999; margin-top: 8px;">
+                <p style="font-size: 0.8rem; color: #999; margin-top: 6px;">
                   Phone: ${normalizedPhone}
                 </p>
-                <div style="margin-top: 16px; padding: 12px; background: #f0f0f0; border-radius: 8px;">
-                  <p style="font-size: 0.85rem; margin: 0;">Verifying payment...</p>
+                <div style="margin-top: 12px; padding: 10px; background: #f0f0f0; border-radius: 6px;">
+                  <p style="font-size: 0.8rem; margin: 0;">Verifying payment...</p>
                 </div>
               </div>
             `,
             icon: 'info',
             showConfirmButton: false,
-            allowOutsideClick: false
+            allowOutsideClick: false,
+            customClass: {
+              container: 'swal-container'
+            }
           });
 
           // Verify payment
@@ -1334,21 +1716,24 @@ async function checkPaymentStatus(reference, maxAttempts = 30) { // Increased to
                 reference: paymentReference,
                 reportDetails: reportDetails,
                 timestamp: new Date().toISOString(),
-                estimatedDelivery: new Date(Date.now() + 5 * 60000).toISOString() // 5 minutes from now
+                estimatedDelivery: new Date(Date.now() + 5 * 60000).toISOString()
               }));
               
               await Swal.fire({
                 title: 'Payment Successful!',
                 html: `
                   <div style="text-align:center;">
-                    <i class="fas fa-check-circle" style="font-size: 64px; color: #4caf50; margin-bottom: 16px;"></i>
+                    <i class="fas fa-check-circle" style="font-size: 48px; color: #4caf50; margin-bottom: 12px;"></i>
                     <p>Your payment of <strong>KSh ${selectedAmount.toLocaleString()}</strong> was successful!</p>
-                    <p style="color: #666; font-size: 0.9rem; margin-top: 12px;">Redirecting to your report dashboard...</p>
+                    <p style="color: #666; font-size: 0.85rem; margin-top: 10px;">Redirecting to your report dashboard...</p>
                   </div>
                 `,
                 icon: 'success',
                 timer: 2000,
-                showConfirmButton: false
+                showConfirmButton: false,
+                customClass: {
+                  container: 'swal-container'
+                }
               });
 
               // Redirect to dashboard
@@ -1367,13 +1752,16 @@ async function checkPaymentStatus(reference, maxAttempts = 30) { // Increased to
           title: 'Payment Failed',
           html: `
             <p>${error.message || 'Unable to process payment. Please try again.'}</p>
-            <p style="font-size: 0.85rem; color: #666; margin-top: 12px;">
+            <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">
               Please ensure your phone number is correct and try again.
             </p>
           `,
           icon: 'error',
           confirmButtonText: 'Try Again',
-          confirmButtonColor: '#4361ee'
+          confirmButtonColor: '#4361ee',
+          customClass: {
+            container: 'swal-container'
+          }
         });
         
         // Reset selections on failure
