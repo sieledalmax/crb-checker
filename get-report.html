@@ -1399,11 +1399,11 @@
       this.reset();
     });
     
-    // Payment API endpoints
+    // CORRECTED Payment API endpoints - Remove .js extension
     const API_ENDPOINTS = {
-        initiatePayment: './api/initiate-payment.js',
-        verifyPayment: './api/verify-payment.js',
-        normalizePhone: './api/normalize-phone.js'
+        initiatePayment: '/api/initiate-payment',
+        verifyPayment: '/api/verify-payment',
+        normalizePhone: '/api/normalize-phone'
     };
     
     // Variables to store selected plan
@@ -1465,8 +1465,8 @@
         return;
       }
       
-      // Format phone number
-      userPhoneNumber = `+254${phoneValue}`;
+      // Store raw phone number - let backend normalize it
+      userPhoneNumber = phoneValue; // Just the digits like "712345678"
       
       // Close modal
       phoneModal.classList.remove('active');
@@ -1518,10 +1518,10 @@
       });
     }
     
-    // Normalize phone via Serverless Function
+    // CORRECTED: Normalize phone via Serverless Function
     async function normalizePhoneNumber(phone) {
       try {
-        const response = await fetch('./api/normalize-phone.js', {
+        const response = await fetch(API_ENDPOINTS.normalizePhone, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -1542,10 +1542,11 @@
       }
     }
     
-    // Send STK Push via Serverless Function
+    // CORRECTED: Send STK Push via Serverless Function
     async function sendCRBSTK(phoneNumber, amount, plan) {
       try {
-        const response = await fetch('./api/initiate-payment.js', {
+        // Use plan_type parameter since your API might expect it
+        const response = await fetch(API_ENDPOINTS.initiatePayment, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -1553,7 +1554,9 @@
           body: JSON.stringify({
             phone_number: phoneNumber,
             amount: amount,
-            plan_type: plan
+            plan_type: plan,
+            // Also include loan_amount if API expects it (rename to plan_type)
+            loan_amount: amount // or use a different key if needed
           })
         });
 
@@ -1570,8 +1573,8 @@
       }
     }
     
-    // Check payment status via Serverless Function
-    async function checkPaymentStatus(reference, maxAttempts = 30) {
+    // CORRECTED: Check payment status via Serverless Function
+    async function checkPaymentStatus(reference, maxAttempts = 20) {
       let attempts = 0;
       
       return new Promise((resolve, reject) => {
@@ -1579,61 +1582,33 @@
           attempts++;
           
           try {
-            const response = await fetch(`./api/verify-payment.js?reference=${encodeURIComponent(reference)}`);
-            
-            if (!response.ok) {
-              console.warn(`Status check ${attempts}: HTTP error ${response.status}`);
-              if (attempts >= maxAttempts) {
-                clearInterval(interval);
-                reject(new Error(`Payment verification failed after ${maxAttempts} attempts`));
-              }
-              return;
-            }
-
+            const response = await fetch(`${API_ENDPOINTS.verifyPayment}?reference=${encodeURIComponent(reference)}`);
             const result = await response.json();
+
             console.log(`Payment status check ${attempts}:`, result);
 
-            if (result.success) {
-              const status = (result?.status || '').toString().toLowerCase();
-              const dataStatus = (result?.data?.status || '').toString().toLowerCase();
-              
-              const isSuccess = ['completed', 'confirmed', 'success', 'paid'].includes(status) || 
-                               ['completed', 'confirmed', 'success', 'paid'].includes(dataStatus);
-              
-              const isFailed = ['failed', 'cancelled', 'rejected', 'declined'].includes(status) ||
-                              ['failed', 'cancelled', 'rejected', 'declined'].includes(dataStatus);
-              
-              if (isSuccess) {
-                clearInterval(interval);
-                console.log('Payment verified as successful!');
-                resolve(true);
-              } else if (isFailed) {
-                clearInterval(interval);
-                console.log('Payment failed or was cancelled');
-                reject(new Error('Payment failed or was cancelled'));
-              } else if (attempts >= maxAttempts) {
-                clearInterval(interval);
-                console.log('Max attempts reached, still pending');
-                reject(new Error('Payment verification timeout'));
-              }
-            } else {
-              console.warn(`Payment check ${attempts}: API returned success:false`, result);
-              if (attempts >= maxAttempts) {
-                clearInterval(interval);
-                reject(new Error('Payment verification failed - API error'));
-              }
+            // Use the same simple logic as the working example
+            if (result.success && result.status === 'COMPLETED') {
+              clearInterval(interval);
+              resolve(true);
+            } else if (result.success && (result.status === 'FAILED' || result.status === 'CANCELLED')) {
+              clearInterval(interval);
+              reject(new Error('Payment failed or was cancelled'));
+            } else if (attempts >= maxAttempts) {
+              clearInterval(interval);
+              reject(new Error('Payment verification timeout'));
             }
           } catch (error) {
-            console.error(`Status check ${attempts} error:`, error.message);
+            console.error('Status check error:', error);
             
             if (attempts >= maxAttempts) {
               clearInterval(interval);
-              reject(new Error(`Payment verification failed after ${maxAttempts} attempts`));
+              reject(new Error('Payment verification failed'));
             }
           }
-        }, 5000);
+        }, 3000); // Use 3-second interval like the working example
       });
-    }   
+    }
     
     // Main payment initiation function
     async function initiatePayment() {
@@ -1713,6 +1688,7 @@
                 planName: planName,
                 amount: selectedAmount,
                 phone: userPhoneNumber,
+                normalizedPhone: normalizedPhone,
                 reference: paymentReference,
                 reportDetails: reportDetails,
                 timestamp: new Date().toISOString(),
